@@ -43,9 +43,11 @@ The extension operator uses a webhook call to the url that you set in the develo
 In order for your extension to fully integrate with our system you must have the following endpoints configured
 #### **POST** `/invoke/realtime`:
   - request body will include a field called `arguments` conataining a dictionary with user provided arguments
-    - ie: `{ arguments: { Timezone: 'UTC' } }`
+    - ie: `{ "arguments": { "Timezone": "UTC" } }`
   - We expect the webhook to return json containing a return value
-    - ie: `{ return: "Sunday" }`
+    - ie: `{ "return": "Sunday", "resolutions": [] }`
+  - If there is a external link that would be useful in explaining the descision your extension made (ie - article link, tweet, etc.), you can include it in the "resolutions" field. 
+    - this example isn't ideal application: `{ "return": "Sunday", "resolutions" : ["it's Sunday 2019-10-27 in timezone UTC"] }`
 #### **POST** `/invoke/timeline`:
   - This extension isn't always required, however it's important for most users and will be displayed in marketplace
   - request body will include a field for the following
@@ -53,26 +55,27 @@ In order for your extension to fully integrate with our system you must have the
     - `period`: start and end of backtest period
     - `ts`: [timestamp](#) for particular datapoint (note: "start", "*", "default" have special meaning)
     ```js
-    body:  {
-      arguments: { Timezone: 'UTC' },
-      period: [ '2019-10-20T15:50:46.486Z', '2019-10-27T15:50:46.486Z' ]
+    {
+      "arguments" : { "Timezone" : "UTC" },
+      "period" : [ "2019-10-20T15:50:46.486Z", "2019-10-27T15:50:46.486Z" ],
+      "ts" : "*"
     }
     ```
   - We expect the webhook to return json containing a value timeline, for example:
     ```js
     {
-      timeline: {
-        start: { value: 'Sunday' },
-        '2019-10-21T00:00:00Z': { value: 'Monday' },
-        '2019-10-22T00:00:00Z': { value: 'Tuesday' },
-        '2019-10-23T00:00:00Z': { value: 'Wednesday' },
-        '2019-10-24T00:00:00Z': { value: 'Thursday' },
-        '2019-10-25T00:00:00Z': { value: 'Friday' },
-        '2019-10-26T00:00:00Z': { value: 'Saturday' },
-        '2019-10-27T00:00:00Z': { value: 'Sunday' }
+      "timeline" : {
+        "start" : { "value" : "Sunday" },
+        "2019-10-21T00:00:00Z": { "value": "Monday" },
+        "2019-10-22T00:00:00Z": { "value": "Tuesday" },
+        "2019-10-23T00:00:00Z": { "value": "Wednesday" },
+        "2019-10-24T00:00:00Z": { "value": "Thursday" },
+        "2019-10-25T00:00:00Z": { "value": "Friday" },
+        "2019-10-26T00:00:00Z": { "value": "Saturday" },
+        "2019-10-27T00:00:00Z": { "value": "Sunday" }
       },
-      warn: [],
-      resolutions: []
+      "warn": [],
+      "resolutions": []
     }     
     ```
   - 
