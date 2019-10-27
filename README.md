@@ -1,35 +1,4 @@
-# extension-howto
-For now this is more of a timeline of when things will be ready
-
-## Going forward
-We move pretty fast and work on a lot of different tasks, but here's what our timeline for extensions/templates/packages is looking like.
-#### 2019.11.1:
-- Build out developer portal
-- Add template system to app
-- **Begin working with developers on making extensions**
-
-#### 2019.11.15
-- Extension/Template/Package Marketplace working
-- **Begin working with developers on populating markeplace**
-- Preliminary Payment system
-- bulk timeline operation support (improve backtest performance)
-
-#### 2019.11.25
-- Fully automated system for deployment of extensions
-  - Manual Review still required for templates/packages
-- Fully automated payment system
-- Polish developer portal
-
-<!--
-#### 2019.12.1
-- Desktop MVP operational
-  - Makes extensions more intuitive and allows users to make more advanced strategies
-- Template editor
-- Events (with mutex protections)
-- Non-binary strategies
--->
-
-
+# Developer Intro
 ## What's an Extension?
 StrattyX has an internal scripting language that we use to represent user strategies. Via an extension operator we can call externally hosted functions. These functions can do pretty much anything and because the user's strategy is a program they can completely change the functionality. 
 
@@ -78,4 +47,90 @@ In order for your extension to fully integrate with our system you must have the
       "resolutions": []
     }     
     ```
-  - 
+  - warnings should go in the warn array
+    - ie: 
+    ```json
+    "warn" : [
+      "Twitter: invalid twitter user", 
+      "Forex: USD->USD xrate always 1", 
+      "RSS: limited historic data, only 20 most recent posts"
+    ],
+    ```
+  - resolutions have same meaning as in realtime, but will likely be ignored
+
+# FAQ
+## What if I don't have a domain name/server?
+- Option 1: Use a free-tier hosting service (ie - heroku, aws freetier, etc.) to host your extension
+- Option 2: Reach out to [@dvtate](https://t.me/ridderhoff), we may be able to host it for you
+
+## I only have one server but want to make multiple extensions
+- Option 1: run different extensions on different port numbers
+  - ie: 4chan extension can have host `strattyx.com:5050` and weather extension could use `strattyx.com:5051`
+- Option 2: Put them in different directories
+  - ie: topic-modelling extension on `strattyx.com/ext/news-topic` and stocktwits extension on `strattyx.com/ext/stocktwits`
+
+## How will I use my extensions?
+- Coming soon: see Outlook, interested in feedback
+- Register your extension via the developer portal
+- it will be available to you in template system and desktop client
+
+## What's a template?
+- Templates are web-based procedurally generated forms that produce expressions in our langauge. This allows us to add new features to the app without writing native code or application updates. 
+- It allows users to create more advanced strategy conditions by using output of operators as inputs
+- When you submit your package you reccomend templates for us to make for it and we will add them in the approval process
+
+## How will User use my extensions?
+- Coming soon: see Outlook, interested in feedback
+- Register your extension(s) via developer portal
+- Using developer portal create a Package containing related extensions
+- fill in relevant details and submit for approval
+- We will make the template UI's based on your suggestions
+- Package will appear in marketplace
+
+## How will marketplace work?
+- It's still a WIP, so this isn't final
+- Potential Package Pricing Models: 
+  - free: primarily first-party or FOSS extensions
+  - one-time cost: front-loaded payment
+    - ie: giving static dataset access
+  - subscription: recurring fee for having access to extension
+    - ie: bloomberg news feed
+  - on-demand: payment based on number of strategies it's used in (or pay-per-use)
+    - good for cpu intensive applications
+    - ie: ai-based 
+- on demand may not be offered initially
+- subscription will likely require paying in advanced
+- developer will get largest cut of revenue from sales
+  - StrattyX and maybe the payment system (ie apple takes 30% of inapp payments) also take smaller cuts
+
+
+# Outlook
+We move pretty fast and work on a lot of different tasks, but here's what our timeline for extensions/templates/packages is looking like. None of these dates are set in stone. Also note that even if we have things added to frontend, user may not see it for an additional week or so due to a variety of factors.
+
+#### 2019.11.1:
+- [ ] Build out developer portal
+- [X] Build out template system
+- [ ] Add template system to app
+- [X] **Begin working with developers on making extensions**
+
+#### 2019.11.15
+- [ ] Features (Package,Template,Extension) Marketplace working
+- [ ] **Begin working with developers on populating markeplace**
+- [ ] Preliminary Payment system
+- [ ] bulk timeline operation support (improve backtest performance)
+
+#### 2019.11.25
+- [ ] Features Marketplace in app
+- [ ] Fully automated system for deployment of extensions
+  - [ ] Manual Review still required for templates/packages
+- [ ] Fully automated payment system
+- [ ] Polish developer portal
+
+<!--
+#### 2019.12.1
+- [ ] Desktop MVP operational
+  - [ ] Makes extensions more intuitive and allows users to make more advanced strategies
+- [ ] Template editor
+- [ ] Events (with mutex protections)
+- [ ] Non-binary strategies
+-->
