@@ -10,14 +10,14 @@ The extension operator uses a webhook call to the url that you set in the develo
 
 ### Endpoints
 In order for your extension to fully integrate with our system you must have the following endpoints configured
-#### **POST** `/invoke/realtime`:
+#### **POST** `/invoke/live`:
   - request body will include a field called `arguments` conataining a dictionary with user provided arguments
     - ie: `{ "arguments": { "Timezone": "UTC" } }`
   - We expect the webhook to return json containing a return value
     - ie: `{ "return": "Sunday", "resolutions": [] }`
   - If there is a external link that would be useful in explaining the descision your extension made (ie - article link, tweet, etc.), you can include it in the "resolutions" field. 
     - this example isn't ideal application: `{ "return": "Sunday", "resolutions" : ["it's Sunday 2019-10-27 in timezone UTC"] }`
-#### **POST** `/invoke/timeline`:
+#### **POST** `/invoke/historic`:
   - This extension isn't always required, however it's important for most users and will be displayed in marketplace
   - request body will include a field for the following
     - `arguments`: arguments for operator
